@@ -1,5 +1,7 @@
 # ISF Firmware Updater
 
+![Screenshot](Images/Screenshot.png)
+
 ## Introduction
 
 ISF Firmware Updater is a framework intended to facilitate the development of custom firmware-updating applications.
@@ -15,6 +17,8 @@ The bootloader is designed to always run on power-on-reset. On startup it will r
 The bootloader framework doesn't dictate any particular communication protocol. This allows the same protocol to be used for both the firmware and the bootloader. Also the bootloader can run over any communication interface supported by the device, including such not supported by the bootloader contained in the microcontroller's ROM as provided by ST.
 
 This ability has e.g. been used in practice to indirectly upload the firmware for sensor nodes communicating over RS-485 with a central hub, itself communicating over either virtual serial port or TCP/IP with a host system.
+
+Currently STM32F4 and STM32L4 series microcontrollers are supported. Others will be added over time.
 
 ## Examples
 
