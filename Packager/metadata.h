@@ -1,6 +1,6 @@
 // ============================================================================================== //
 //                                                                                                //
-//  This file is part of the ISF Firmware Updater library.                                        //
+//  This file is part of the ISF Firmware Updater software.                                       //
 //                                                                                                //
 //  Author:                                                                                       //
 //  Marcel Hasler <mahasler@gmail.com>                                                            //
@@ -8,50 +8,33 @@
 //  Copyright (c) 2020 - 2023                                                                     //
 //  Bonn-Rhein-Sieg University of Applied Sciences                                                //
 //                                                                                                //
-//  This library is free software: you can redistribute it and/or modify it under the terms of    //
-//  the GNU Lesser General Public License as published by the Free Software Foundation, either    //
+//  This program is free software: you can redistribute it and/or modify it under the terms       //
+//  of the GNU General Public License as published by the Free Software Foundation, either        //
 //  version 3 of the License, or (at your option) any later version.                              //
 //                                                                                                //
-//  This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;     //
+//  This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;     //
 //  without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.     //
-//  See the GNU Lesser General Public License for more details.                                   //
+//  See the GNU General Public License for more details.                                          //
 //                                                                                                //
-//  You should have received a copy of the GNU Lesser General Public License along with this      //
-//  library. If not, see <https://www.gnu.org/licenses/>.                                         //
+//  You should have received a copy of the GNU General Public License along with this program.    //
+//  If not, see <https://www.gnu.org/licenses/>.                                                  //
 //                                                                                                //
 // ============================================================================================== //
 
 #pragma once
 
-#include <FirmwareUpdater/Core/component.h>
+#include <QString>
 
-#include <QWidget>
+#include <stdexcept>
 
-#include <memory>
-
-namespace Ui {
-    class BootloaderWidget;
-}
-
-FIRMWAREUPDATER_BEGIN_NAMESPACE();
-
-class BootloaderWidget : public QWidget
+struct Metadata
 {
-    Q_OBJECT
+    QString boardName;
+    QString hardwareVersion;
+    QString firmwareVersion;
+    QString releaseDate;
+    QString packager;
 
-public:
-    explicit BootloaderWidget(QWidget* parent = nullptr);
-    ~BootloaderWidget() override;
-
-    void setInfo(const Component::BootloaderInfo& info);
-    void setAvailableFirmwareVersion(const std::string& version);
-
-signals:
-    void uploadFirmwareClicked();
-    void launchFirmwareClicked();
-
-private:
-    std::unique_ptr<Ui::BootloaderWidget> m_ui;
+    using Error = std::runtime_error;
+    static auto fromFile(const QString& filename) -> Metadata;
 };
-
-FIRMWAREUPDATER_END_NAMESPACE();

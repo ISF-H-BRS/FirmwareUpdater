@@ -31,7 +31,7 @@
 
 #include <memory>
 
-FIRMWAREUPDATER_BEGIN_NAMESPACE()
+FIRMWAREUPDATER_BEGIN_NAMESPACE();
 
 class MainWindow : public QMainWindow
 {
@@ -75,4 +75,4 @@ private:
     std::unique_ptr<Private> d;
 };
 
-FIRMWAREUPDATER_END_NAMESPACE()
+FIRMWAREUPDATER_END_NAMESPACE();

@@ -121,9 +121,8 @@ auto FirmwareArchive::hexRecords() const -> const StringList&
 
 void FirmwareArchive::setPublicKey(const std::string& key)
 {
-    // TODO: Replace with C++20 std::string::starts|ends_with() once available
-    const bool keyValid = key.find("-----BEGIN PUBLIC KEY-----") != std::string::npos &&
-                          key.find("-----END PUBLIC KEY-----")   != std::string::npos;
+    const bool keyValid = key.starts_with("-----BEGIN RSA PUBLIC KEY-----") &&
+                          key.ends_with("-----END RSA PUBLIC KEY-----");
     if (!keyValid)
         throw Error("RSA key not in valid PEM format.");
 
@@ -218,24 +217,24 @@ auto FirmwareArchivePrivate::base64Decode(const ByteArray& input) -> ByteArray
 void FirmwareArchivePrivate::verifySignature(const ByteArray& data, const ByteArray& signature,
                                              const std::string& key)
 {
-    BIO* bio = BIO_new_mem_buf(key.data(), key.size());
-    RSA* rsa = PEM_read_bio_RSA_PUBKEY(bio, nullptr, nullptr, nullptr);
+    BIO* bio = BIO_new_mem_buf(key.data(), static_cast<int>(key.size()));
+    EVP_PKEY* pkey = PEM_read_bio_PUBKEY(bio, nullptr, nullptr, nullptr);
 
     BIO_free_all(bio);
 
-    if (!rsa)
-        throw Error("Unable to create OpenSSL RSA public key.");
+    if (!pkey)
+        throw Error("Unable to parse RSA public key.");
 
-    PkeyGuard pkey(EVP_PKEY_new(), EVP_PKEY_free);
-    EVP_PKEY_assign_RSA(pkey.get(), rsa);
+    EVP_MD_CTX* ctx = EVP_MD_CTX_create();
 
-    CtxGuard ctx(EVP_MD_CTX_create(), EVP_MD_CTX_free);
+    PkeyGuard pkeyGuard(pkey, EVP_PKEY_free);
+    CtxGuard ctxGuard(ctx, EVP_MD_CTX_free);
 
-    if (EVP_DigestVerifyInit(ctx.get(), nullptr, EVP_sha256(), nullptr, pkey.get()) <= 0)
+    if (EVP_DigestVerifyInit(ctx, nullptr, EVP_sha256(), nullptr, pkey) <= 0)
         throw Error("Unable to initialize OpenSSL digest verification.");
 
-    const int result = EVP_DigestVerify(ctx.get(), signature.data(), signature.size(),
-                                                   data.data(), data.size());
+    const int result = EVP_DigestVerify(ctx, signature.data(), signature.size(),
+                                             data.data(), data.size());
     if (result < 0)
         throw Error("OpenSSL digest verification failed.");
 
@@ -269,8 +268,10 @@ auto FirmwareArchivePrivate::parseMetadata(const ByteArray& data) -> FirmwareArc
             metadata.hardwareVersion = value;
         else if (key == "FirmwareVersion")
             metadata.firmwareVersion = value;
-        else if (key == "Publisher")
-            metadata.publisher = value;
+        else if (key == "ReleaseDate")
+            metadata.releaseDate = value;
+        else if (key == "Packager")
+            metadata.packager = value;
         else
             throw Error("Invalid key \"" + key + "\" in firmware metadata.");
     }
@@ -284,8 +285,11 @@ auto FirmwareArchivePrivate::parseMetadata(const ByteArray& data) -> FirmwareArc
     if (metadata.firmwareVersion.empty())
         throw Error("No firmware version specified in firmware metadata.");
 
-    if (metadata.publisher.empty())
-        throw Error("No publisher specified in firmware metadata.");
+    if (metadata.releaseDate.empty())
+        throw Error("No release date specified in firmware metadata.");
+
+    if (metadata.packager.empty())
+        throw Error("No packager specified in firmware metadata.");
 
     return metadata;
 }

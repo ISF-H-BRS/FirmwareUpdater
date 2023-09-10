@@ -1,1 +1,0 @@
-../../../../Scripts/genkey.sh

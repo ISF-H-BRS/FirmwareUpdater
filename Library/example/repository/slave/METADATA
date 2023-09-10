@@ -1,4 +1,5 @@
 BoardName = DummySlaveBoard
 HardwareVersion = 2.0
 FirmwareVersion = 2.0
-Publisher = The ISF Team
+ReleaseDate = 20230910
+Packager = The ISF Team

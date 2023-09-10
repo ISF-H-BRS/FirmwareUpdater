@@ -28,7 +28,7 @@
 #include <memory>
 #include <string>
 
-FIRMWAREUPDATER_BEGIN_NAMESPACE()
+FIRMWAREUPDATER_BEGIN_NAMESPACE();
 
 class Component;
 using ComponentPtr = std::unique_ptr<Component>;
@@ -76,4 +76,4 @@ public:
     virtual void writeHexRecord(const std::string& record) = 0;
 };
 
-FIRMWAREUPDATER_END_NAMESPACE()
+FIRMWAREUPDATER_END_NAMESPACE();

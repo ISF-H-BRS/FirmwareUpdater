@@ -1,0 +1,5 @@
+Bootloader/examples/.metadata
+Bootloader/examples/*/*.launch
+Bootloader/examples/*/Debug
+Bootloader/examples/*/Release
+CMakeLists.txt.user*

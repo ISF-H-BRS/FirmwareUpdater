@@ -33,7 +33,7 @@ namespace Ui {
     class FirmwareWidget;
 }
 
-FIRMWAREUPDATER_BEGIN_NAMESPACE()
+FIRMWAREUPDATER_BEGIN_NAMESPACE();
 
 class FirmwareWidget : public QWidget
 {
@@ -53,4 +53,4 @@ private:
     std::unique_ptr<Ui::FirmwareWidget> m_ui;
 };
 
-FIRMWAREUPDATER_END_NAMESPACE()
+FIRMWAREUPDATER_END_NAMESPACE();

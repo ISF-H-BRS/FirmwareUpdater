@@ -29,7 +29,7 @@
 #include <string>
 #include <vector>
 
-FIRMWAREUPDATER_BEGIN_NAMESPACE()
+FIRMWAREUPDATER_BEGIN_NAMESPACE();
 
 class FirmwareArchive
 {
@@ -39,7 +39,8 @@ public:
         std::string boardName;
         std::string hardwareVersion;
         std::string firmwareVersion;
-        std::string publisher;
+        std::string releaseDate;
+        std::string packager;
     };
 
     using StringList = std::vector<std::string>;
@@ -61,4 +62,4 @@ private:
     static std::string s_publicKey;
 };
 
-FIRMWAREUPDATER_END_NAMESPACE()
+FIRMWAREUPDATER_END_NAMESPACE();

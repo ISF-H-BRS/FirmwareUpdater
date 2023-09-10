@@ -27,7 +27,11 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
-find_package(Qt5 COMPONENTS SerialPort Widgets REQUIRED)
+if (FIRMWARE_UPDATER_USE_QT5)
+    find_package(Qt5 5.15 COMPONENTS SerialPort Widgets REQUIRED)
+else()
+    find_package(Qt6 COMPONENTS SerialPort Widgets REQUIRED)
+endif()
 
 set(FIRMWARE_UPDATER_SOURCES
     aboutdialog.cpp
@@ -50,7 +54,7 @@ set(FIRMWARE_UPDATER_RESOURCES FirmwareUpdater.qrc)
 
 set(FIRMWARE_UPDATER_LIBRARIES
     FirmwareUpdaterUi
-    Qt5::Widgets
+    Qt::Widgets
 )
 
 set(DUMMY_UPDATER_SOURCES
@@ -82,7 +86,7 @@ set(NUCLEO_UPDATER_HEADERS
 
 set(NUCLEO_UPDATER_LIBRARIES
     ${FIRMWARE_UPDATER_LIBRARIES}
-    Qt5::SerialPort
+    Qt::SerialPort
 )
 
 add_executable(DummyUpdater WIN32

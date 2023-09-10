@@ -27,7 +27,7 @@
 
 #include <stdexcept>
 
-FIRMWAREUPDATER_BEGIN_NAMESPACE()
+FIRMWAREUPDATER_BEGIN_NAMESPACE();
 
 class FirmwareManager
 {
@@ -42,4 +42,4 @@ public:
                             const std::string& hardwareVersion) -> FirmwareArchive;
 };
 
-FIRMWAREUPDATER_END_NAMESPACE()
+FIRMWAREUPDATER_END_NAMESPACE();

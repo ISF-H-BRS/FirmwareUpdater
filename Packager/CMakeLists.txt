@@ -21,36 +21,38 @@
 #                                                                                                  #
 ####################################################################################################
 
-message("Building core library.")
+cmake_minimum_required(VERSION 3.14)
+project(FirmwarePackager)
+
+set(FIRMWARE_PACKAGER_USE_QT5 OFF CACHE BOOL "Build against Qt5 rather than Qt6.")
+
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+
+if (FIRMWARE_PACKAGER_USE_QT5)
+    find_package(Qt5 5.15 REQUIRED COMPONENTS Widgets)
+else()
+    find_package(Qt6 REQUIRED COMPONENTS Widgets)
+endif()
 
 find_package(OpenSSL REQUIRED)
 find_package(libzip REQUIRED)
 
-set(FIRMWARE_UPDATER_CORE_SOURCES
-    base64.c
-    firmwarearchive.cpp
-    firmwaremanager.cpp
-    uploadjob.cpp
+set(FIRMWARE_PACKAGER_SOURCES
+        main.cpp
+        mainwindow.cpp
+        mainwindow.h
+        mainwindow.ui
+        metadata.h
+        metadata.cpp
+        packager.h
+        packager.cpp
 )
 
-set(FIRMWARE_UPDATER_CORE_HEADERS
-    base64.h
-    ../include/FirmwareUpdater/Core/component.h
-    ../include/FirmwareUpdater/Core/componentfactory.h
-    ../include/FirmwareUpdater/Core/firmwarearchive.h
-    ../include/FirmwareUpdater/Core/firmwaremanager.h
-    ../include/FirmwareUpdater/Core/namespace.h
-    ../include/FirmwareUpdater/Core/uploadjob.h
-)
-
-set(FIRMWARE_UPDATER_CORE_LIBRARIES
-    OpenSSL::Crypto
-    zip
-)
-
-add_library(FirmwareUpdaterCore SHARED
-    ${FIRMWARE_UPDATER_CORE_SOURCES}
-    ${FIRMWARE_UPDATER_CORE_HEADERS}
-)
-
-target_link_libraries(FirmwareUpdaterCore ${FIRMWARE_UPDATER_CORE_LIBRARIES})
+add_executable(FirmwarePackager WIN32 ${FIRMWARE_PACKAGER_SOURCES})
+target_link_libraries(FirmwarePackager Qt::Widgets OpenSSL::Crypto zip)

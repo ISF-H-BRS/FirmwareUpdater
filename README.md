@@ -26,9 +26,9 @@ The Bootloader directory contains a working example for a Nucleo-F446RE.
 
 The Library directory contains an example that will compile two executables, one for use with the Nucleo board and the other emulating a dummy device that can be used to test the framework without existing hardware.
 
-The Scripts directory contains two Bash scripts to help create signed firmware packages. In order to run them, [openssl](https://www.openssl.org/) and [zip](https://infozip.sourceforge.net/) are required.
+The Packager directory contains a simple package-generator application that can be used to create signed firmware packages. In order to compile, [libcrypto](https://www.openssl.org/) and [libzip](https://libzip.org/) are required.
 
-At some point a package-generator application might be added to the project, but for now, have a look at the 'repository' directory of the example application for a working example.
+The Scripts directory contains two Bash scripts to help create firmware packages from the command line. In order to run them, [openssl](https://www.openssl.org/) and [zip](https://infozip.sourceforge.net/) are required.
 
 ## License
 

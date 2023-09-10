@@ -26,7 +26,11 @@ message("Building UI library.")
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
+if (FIRMWARE_UPDATER_USE_QT5)
+    find_package(Qt5 5.15 COMPONENTS Widgets REQUIRED)
+else()
+    find_package(Qt6 COMPONENTS Widgets REQUIRED)
+endif()
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
@@ -59,7 +63,7 @@ set(FIRMWARE_UPDATER_UI_FORMS
 
 set(FIRMWARE_UPDATER_UI_LIBRARIES
     FirmwareUpdaterCore
-    Qt5::Widgets
+    Qt::Widgets
 )
 
 add_library(FirmwareUpdaterUi SHARED

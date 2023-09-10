@@ -31,20 +31,19 @@
 
 namespace {
     constexpr const char* PublicKey =
-            "-----BEGIN PUBLIC KEY-----\n"
-            "MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA1vFeef+TObySEW27LCT1"
-            "uK2fS3AykwcZUMVAB3c+KB3nAz1Oj5NAxrh//vMKiH9CZD8o8qjChmRRYV7FGEnZ"
-            "HqpwntCB1kl7iInBiDMXxPivLYPmeIfW0FgO6fD9pHVOP67dFko8EwKlpG5YIJat"
-            "DhkSNkdgOHe+5BsxaNtjPXnGoriTctDLTMh6SxxBgHu9eK8PR9fyPmI5NPr+pgOW"
-            "nkr5EIvrLGUiYU1gqSEmznvQkXIFzCikLxQOh6IJY7M8oHVpGZOxpcYBIcDAqI+I"
-            "rnu3v3YrtBlxlAjRGmRkSqv+hbFLw0sveVBjxYnP7dsE2RmM5f7G6Q2bgePM7oA1"
-            "BFdN/G6xak1G7sf1Km6e0V8HksXmGwuojLX71fVEuuD/o5uDElkl6aKSxX35Pipk"
-            "wSn3GIzwp0JzproVGz9VbgMQubFJXaABCeldHDRtiCNYhnOhjK2GsPO3DRIPXee2"
-            "vj+JLdvQS8QRTCR+dQlkl5fHBP+o8RKpjS8jiyCet3BcEEuUGM9lk7c+3UmQ1L1a"
-            "I8PNlEnUZT2qkK4JwUh/wveik8lnZng9SG+XlFYeGE8tpJiCOKFCU6tUHIQdmNOP"
-            "Dux1DoFL5GwA7dofzEllNiTSZvj+UFRQaXiWACd7UQ/0Z40s/dMgEuvjE4YXgp5e"
-            "rrzDnx0kXNXJCd4RxWiRNPMCAwEAAQ==\n"
-            "-----END PUBLIC KEY-----";
+        "-----BEGIN RSA PUBLIC KEY-----\n"
+        "MIICCgKCAgEAox5HiWSXPB2kW9r7mLmjk7oE7U6D+FMWT1pR9QDnMgPEPMH0rzW3\n"
+        "TbDnLFX8XRpMvjIvCgd0N2m+kvTM8/V+DRbGy4j2OgjvOfZWMUWqIvXajNmWz6mo\n"
+        "R1bTaLj3BF3xP7qP1c0SjdGzI2W7P1sN2AVs1jWkbuB8xZapqL9Sq2f4Ua4snlDF\n"
+        "f26fraBGiz0RV0oWiwym37Rm8qZEgYKO5+Di8q7pFJtomWygSaKDOEdVZi5jHZHT\n"
+        "MEmA/UhoRH7M5jmHV5qG23Yvpt0vf90G0LaTw1UeGSvfN9qk6gcSg1O+7ZqMEZMt\n"
+        "2wEljj2bSMOMLGmmBxbensLXrek/t9CRA3M6w9Tbi7iAty36vJKoV8vVM684Crhk\n"
+        "LtpKC0htTqMLpuL0HO8ErMpvK4M+aoLR8EyBYsUEG2ZH3I+HXOPREaZnsrdrWomp\n"
+        "6UQCgslSfeqwbR61Z9XKd+26L9zc+Vkvf/WyDVKDAyTet45jBKD8dBJi2QXuJLqr\n"
+        "c0ooEtnRM3uwt58iKjvILk7kAuQGuTOW8toBoAxJfrlf0YfrPkjlbMRxgWWqovOo\n"
+        "neRy5jTZtMdIfv9FaRARB1OuMMEpsA7kZlJSn824cgbyB+8hJMVKIgaPtaBiANXL\n"
+        "PkwINBoVpjLWUOTO9jBi9S9+z//dYyLWuvEfK8WROLYqIHoY4hG8hdECAwEAAQ==\n"
+        "-----END RSA PUBLIC KEY-----";
 }
 
 // ---------------------------------------------------------------------------------------------- //

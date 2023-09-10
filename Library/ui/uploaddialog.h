@@ -33,7 +33,7 @@ namespace Ui {
     class UploadDialog;
 }
 
-FIRMWAREUPDATER_BEGIN_NAMESPACE()
+FIRMWAREUPDATER_BEGIN_NAMESPACE();
 
 class UploadDialog : public QDialog
 {
@@ -53,4 +53,4 @@ private:
     UploadJob* m_job;
 };
 
-FIRMWAREUPDATER_END_NAMESPACE()
+FIRMWAREUPDATER_END_NAMESPACE();

@@ -33,7 +33,7 @@ namespace Ui {
     class ComponentWidget;
 }
 
-FIRMWAREUPDATER_BEGIN_NAMESPACE()
+FIRMWAREUPDATER_BEGIN_NAMESPACE();
 
 class ComponentWidget : public QWidget
 {
@@ -59,4 +59,4 @@ private:
     std::unique_ptr<Ui::ComponentWidget> m_ui;
 };
 
-FIRMWAREUPDATER_END_NAMESPACE()
+FIRMWAREUPDATER_END_NAMESPACE();

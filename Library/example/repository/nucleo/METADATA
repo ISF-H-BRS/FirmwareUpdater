@@ -1,4 +1,5 @@
 BoardName = NucleoF446RE
 HardwareVersion = 1.0
 FirmwareVersion = 1.0
-Publisher = The ISF Team
+ReleaseDate = 20230910
+Packager = The ISF Team

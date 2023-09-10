@@ -34,7 +34,7 @@ namespace Ui {
     class MainWidget;
 }
 
-FIRMWAREUPDATER_BEGIN_NAMESPACE()
+FIRMWAREUPDATER_BEGIN_NAMESPACE();
 
 class MainWidget : public QWidget
 {
@@ -74,4 +74,4 @@ private:
     ComponentFactory* m_componentFactory = nullptr;
 };
 
-FIRMWAREUPDATER_END_NAMESPACE()
+FIRMWAREUPDATER_END_NAMESPACE();

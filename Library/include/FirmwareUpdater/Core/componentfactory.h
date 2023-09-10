@@ -28,7 +28,7 @@
 #include <string>
 #include <vector>
 
-FIRMWAREUPDATER_BEGIN_NAMESPACE()
+FIRMWAREUPDATER_BEGIN_NAMESPACE();
 
 struct ComponentDescriptor
 {
@@ -49,4 +49,4 @@ public:
     virtual auto getComponent(int uniqueId) const -> ComponentPtr = 0;
 };
 
-FIRMWAREUPDATER_END_NAMESPACE()
+FIRMWAREUPDATER_END_NAMESPACE();
