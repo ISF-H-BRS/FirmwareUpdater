@@ -8,7 +8,7 @@ ISF Firmware Updater is a framework intended to facilitate the development of cu
 
 It consists of two parts: A bootloader framework for STM32 microcontrollers and a software framework for desktop applications.
 
-The software framework consists of a core library that implements the actual firmware and device handling and a Qt-based UI library which provides a complete user interface that can be extended as needed. The core library can be used to implement command-line tools or to incorporate firmware-update functionality into existing applications.
+The software framework consists of a core library that implements the actual firmware and device handling and a [Qt](https://www.qt.io/)-based UI library which provides a complete user interface that can be extended as needed. The core library can be used to implement command-line tools or to incorporate firmware-update functionality into existing applications.
 
 The framework uses cryptographically signed firmware packages with embedded metadata to ensure that only firmware actually intended for a particular device will be uploaded.
 
@@ -28,7 +28,7 @@ The Library directory contains an example that will compile two executables, one
 
 The Packager directory contains a simple package-generator application that can be used to create signed firmware packages. In order to compile, [libcrypto](https://www.openssl.org/) and [libzip](https://libzip.org/) are required.
 
-The Scripts directory contains two Bash scripts to help create firmware packages from the command line. In order to run them, [openssl](https://www.openssl.org/) and [zip](https://infozip.sourceforge.net/) are required.
+The Scripts directory contains two Bash scripts to help create firmware packages from the command line. In order to run them, [ssh-keygen](https://www.openssh.com/), [openssl](https://www.openssl.org/) and [zip](https://infozip.sourceforge.net/) are required.
 
 ## License
 
