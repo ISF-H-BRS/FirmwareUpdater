@@ -74,7 +74,7 @@ namespace FirmwareArchivePrivate {
 
 // ---------------------------------------------------------------------------------------------- //
 
-std::string FirmwareArchive::s_publicKey;
+std::map<std::string,std::string> FirmwareArchive::s_publicKeys;
 
 // ---------------------------------------------------------------------------------------------- //
 
@@ -82,24 +82,29 @@ FirmwareArchive::FirmwareArchive(const std::string& filename)
 {
     using namespace FirmwareArchivePrivate;
 
-    if (s_publicKey.empty())
-        throw Error("No RSA public key defined by application.");
-
     zip* fileHandle = openZipFile(filename);
     ZipGuard fileGuard(fileHandle, zip_close);
 
     const ByteArray dataFile = readFile(fileHandle, "Data.zip");
     const ByteArray signature = readFile(fileHandle, "Data.zip.sig");
 
-    verifySignature(dataFile, base64Decode(signature), s_publicKey);
-
     zip* dataHandle = openZipData(dataFile);
     ZipGuard dataGuard(dataHandle, zip_close);
 
     const ByteArray metadata = readFile(dataHandle, "METADATA");
-    const ByteArray hexFile = readFile(dataHandle, "Data.hex");
-
     m_metadata = parseMetadata(metadata);
+
+    auto it = s_publicKeys.find(m_metadata.packager);
+
+    if (it == s_publicKeys.end())
+    {
+        throw Error("Unable to verify package signature. No RSA public key "
+                    "registered for packager " + m_metadata.packager + ".");
+    }
+
+    verifySignature(dataFile, base64Decode(signature), it->second);
+
+    const ByteArray hexFile = readFile(dataHandle, "Data.hex");
     m_hexRecords = parseHexFile(hexFile);
 }
 
@@ -119,14 +124,14 @@ auto FirmwareArchive::hexRecords() const -> const StringList&
 
 // ---------------------------------------------------------------------------------------------- //
 
-void FirmwareArchive::setPublicKey(const std::string& key)
+void FirmwareArchive::registerPublicKey(const std::string& packager, const std::string& key)
 {
     const bool keyValid = key.starts_with("-----BEGIN RSA PUBLIC KEY-----") &&
                           key.ends_with("-----END RSA PUBLIC KEY-----");
     if (!keyValid)
         throw Error("RSA key not in valid PEM format.");
 
-    s_publicKey = key;
+    s_publicKeys[packager] = key;
 }
 
 // ---------------------------------------------------------------------------------------------- //
@@ -309,6 +314,9 @@ auto FirmwareArchivePrivate::parseHexFile(const ByteArray& data) -> FirmwareArch
     while (std::getline(stream, line))
     {
         ++lineNumber;
+
+        std::erase(line, '\r');
+        std::erase(line, '\n');
 
         if (line.empty())
             continue;

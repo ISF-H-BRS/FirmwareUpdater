@@ -73,3 +73,7 @@ add_library(FirmwareUpdaterUi SHARED
 )
 
 target_link_libraries(FirmwareUpdaterUi ${FIRMWARE_UPDATER_UI_LIBRARIES})
+
+if (WIN32)
+    set_target_properties(FirmwareUpdaterUi PROPERTIES PREFIX "")
+endif()

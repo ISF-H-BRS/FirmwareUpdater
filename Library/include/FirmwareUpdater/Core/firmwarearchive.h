@@ -25,6 +25,7 @@
 
 #include <FirmwareUpdater/Core/namespace.h>
 
+#include <map>
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -53,13 +54,13 @@ public:
     auto metadata() const -> const Metadata&;
     auto hexRecords() const -> const StringList&;
 
-    static void setPublicKey(const std::string& key);
+    static void registerPublicKey(const std::string& packager, const std::string& key);
 
 private:
     Metadata m_metadata;
     StringList m_hexRecords;
 
-    static std::string s_publicKey;
+    static std::map<std::string,std::string> s_publicKeys;
 };
 
 FIRMWAREUPDATER_END_NAMESPACE();

@@ -30,6 +30,8 @@
 // ---------------------------------------------------------------------------------------------- //
 
 namespace {
+    constexpr const char* Packager = "The ISF Team";
+
     constexpr const char* PublicKey =
         "-----BEGIN RSA PUBLIC KEY-----\n"
         "MIICCgKCAgEAox5HiWSXPB2kW9r7mLmjk7oE7U6D+FMWT1pR9QDnMgPEPMH0rzW3\n"
@@ -50,7 +52,7 @@ namespace {
 
 auto main(int argc, char* argv[]) -> int
 {
-    FirmwareUpdater::FirmwareArchive::setPublicKey(PublicKey);
+    FirmwareUpdater::FirmwareArchive::registerPublicKey(Packager, PublicKey);
 
     QCoreApplication::setOrganizationName("Bonn-Rhein-Sieg University of Applied Sciences");
     QCoreApplication::setApplicationName("ISF Firmware Updater");

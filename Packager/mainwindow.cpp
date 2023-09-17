@@ -43,6 +43,27 @@ MainWindow::MainWindow(QWidget* parent)
     m_ui->setupUi(this);
     m_ui->hexFile->setMinimumWidth(40 * QFontMetrics(QApplication::font()).horizontalAdvance('x'));
 
+    const QRegularExpression regex("[^=-]+");
+    auto validator = new QRegularExpressionValidator(regex, this);
+    m_ui->boardName->setValidator(validator);
+    m_ui->hardwareVersion->setValidator(validator);
+    m_ui->firmwareVersion->setValidator(validator);
+    m_ui->packager->setValidator(validator);
+
+    int size = 2 * QApplication::font().pointSize();
+    m_ui->selectHexFile->setIconSize(QSize(size, size));
+    m_ui->selectMetadataFile->setIconSize(QSize(size, size));
+    m_ui->selectSigningKey->setIconSize(QSize(size, size));
+    m_ui->updateReleaseDate->setIconSize(QSize(size, size));
+    m_ui->selectOutputDirectory->setIconSize(QSize(size, size));
+
+    size = m_ui->hexFile->height();
+    m_ui->selectHexFile->setMaximumSize(QSize(size, size));
+    m_ui->selectMetadataFile->setMaximumSize(QSize(size, size));
+    m_ui->selectSigningKey->setMaximumSize(QSize(size, size));
+    m_ui->updateReleaseDate->setMaximumSize(QSize(size, size));
+    m_ui->selectOutputDirectory->setMaximumSize(QSize(size, size));
+
     restoreSettings();
 
     updateContinueToMetadataButton();
@@ -176,6 +197,7 @@ void MainWindow::continueToMetadata()
 
 void MainWindow::returnToInput()
 {
+    trimMetadata();
     m_ui->stack->setCurrentWidget(m_ui->inputPage);
 }
 
@@ -183,6 +205,7 @@ void MainWindow::returnToInput()
 
 void MainWindow::continueToOutput()
 {
+    trimMetadata();
     m_ui->stack->setCurrentWidget(m_ui->outputPage);
 }
 
@@ -294,9 +317,9 @@ void MainWindow::updateContinueToMetadataButton()
     const QString metadataFile = m_ui->metadataFile->text();
     const QString signingKey = m_ui->signingKey->text();
 
-    const bool enable = (!hexFile.isEmpty()      && QFile::exists(hexFile))      &&
-                        ( metadataFile.isEmpty() || QFile::exists(metadataFile)) &&
-                        (!signingKey.isEmpty()   && QFile::exists(signingKey));
+    const bool enable = (!textEmpty(hexFile)      && QFile::exists(hexFile))      &&
+                        ( textEmpty(metadataFile) || QFile::exists(metadataFile)) &&
+                        (!textEmpty(signingKey)   && QFile::exists(signingKey));
 
     m_ui->continueToMetadata->setEnabled(enable);
 }
@@ -311,11 +334,11 @@ void MainWindow::updateContinueToOutputButton()
     const QString releaseDate = m_ui->releaseDate->text();
     const QString packager = m_ui->packager->text();
 
-    const bool enable = !(boardName.isEmpty()       ||
-                          hardwareVersion.isEmpty() ||
-                          firmwareVersion.isEmpty() ||
-                          releaseDate.isEmpty()     ||
-                          packager.isEmpty());
+    const bool enable = !(textEmpty(boardName)       ||
+                          textEmpty(hardwareVersion) ||
+                          textEmpty(firmwareVersion) ||
+                          textEmpty(releaseDate)     ||
+                          textEmpty(packager));
 
     m_ui->continueToOutput->setEnabled(enable);
 }
@@ -326,9 +349,18 @@ void MainWindow::updateCreatePackageButton()
 {
     const QString outputDirectory = m_ui->outputDirectory->text();
 
-    const bool enable = !outputDirectory.isEmpty() && QDir(outputDirectory).exists();
-
+    const bool enable = !textEmpty(outputDirectory) && QDir(outputDirectory).exists();
     m_ui->createPackage->setEnabled(enable);
+}
+
+// ---------------------------------------------------------------------------------------------- //
+
+void MainWindow::trimMetadata()
+{
+    m_ui->boardName->setText(m_ui->boardName->text().trimmed());
+    m_ui->hardwareVersion->setText(m_ui->hardwareVersion->text().trimmed());
+    m_ui->firmwareVersion->setText(m_ui->firmwareVersion->text().trimmed());
+    m_ui->packager->setText(m_ui->packager->text().trimmed());
 }
 
 // ---------------------------------------------------------------------------------------------- //
@@ -397,6 +429,13 @@ void MainWindow::restoreSettings()
 
     check = settings.value("SaveMetadata", m_ui->saveMetadata->isChecked()).toBool();
     m_ui->saveMetadata->setChecked(check);
+}
+
+// ---------------------------------------------------------------------------------------------- //
+
+auto MainWindow::textEmpty(const QString& text) -> bool
+{
+    return text.trimmed().isEmpty();
 }
 
 // ---------------------------------------------------------------------------------------------- //

@@ -54,3 +54,7 @@ add_library(FirmwareUpdaterCore SHARED
 )
 
 target_link_libraries(FirmwareUpdaterCore ${FIRMWARE_UPDATER_CORE_LIBRARIES})
+
+if (WIN32)
+    set_target_properties(FirmwareUpdaterCore PROPERTIES PREFIX "")
+endif()

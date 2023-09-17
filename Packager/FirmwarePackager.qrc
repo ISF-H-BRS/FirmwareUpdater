@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/refresh.svg</file>
+        <file>res/select-file.svg</file>
+        <file>res/select-folder.svg</file>
+    </qresource>
+</RCC>

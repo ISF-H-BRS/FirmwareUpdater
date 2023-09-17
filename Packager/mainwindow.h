@@ -61,8 +61,12 @@ private slots:
     void updateCreatePackageButton();
 
 private:
+    void trimMetadata();
+
     void saveSettings();
     void restoreSettings();
+
+    static auto textEmpty(const QString& text) -> bool;
 
 private:
     std::unique_ptr<Ui::MainWindow> m_ui;

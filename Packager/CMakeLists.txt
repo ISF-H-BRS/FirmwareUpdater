@@ -54,5 +54,7 @@ set(FIRMWARE_PACKAGER_SOURCES
         packager.cpp
 )
 
-add_executable(FirmwarePackager WIN32 ${FIRMWARE_PACKAGER_SOURCES})
+set(FIRMWARE_PACKAGER_RESOURCES FirmwarePackager.qrc)
+
+add_executable(FirmwarePackager WIN32 ${FIRMWARE_PACKAGER_SOURCES} ${FIRMWARE_PACKAGER_RESOURCES})
 target_link_libraries(FirmwarePackager Qt::Widgets OpenSSL::Crypto zip)

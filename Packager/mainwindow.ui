@@ -45,8 +45,21 @@
            </item>
            <item>
             <widget class="QToolButton" name="selectHexFile">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="toolTip">
+              <string>Select HEX file</string>
+             </property>
              <property name="text">
               <string>...</string>
+             </property>
+             <property name="icon">
+              <iconset resource="FirmwarePackager.qrc">
+               <normaloff>:/res/select-file.svg</normaloff>:/res/select-file.svg</iconset>
              </property>
             </widget>
            </item>
@@ -64,8 +77,21 @@
            </item>
            <item>
             <widget class="QToolButton" name="selectMetadataFile">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="toolTip">
+              <string>Select METADATA file</string>
+             </property>
              <property name="text">
               <string>...</string>
+             </property>
+             <property name="icon">
+              <iconset resource="FirmwarePackager.qrc">
+               <normaloff>:/res/select-file.svg</normaloff>:/res/select-file.svg</iconset>
              </property>
             </widget>
            </item>
@@ -83,8 +109,21 @@
            </item>
            <item>
             <widget class="QToolButton" name="selectSigningKey">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="toolTip">
+              <string>Select signing key</string>
+             </property>
              <property name="text">
               <string>...</string>
+             </property>
+             <property name="icon">
+              <iconset resource="FirmwarePackager.qrc">
+               <normaloff>:/res/select-file.svg</normaloff>:/res/select-file.svg</iconset>
              </property>
             </widget>
            </item>
@@ -189,18 +228,27 @@
             </widget>
            </item>
            <item row="3" column="1">
-            <layout class="QHBoxLayout" name="horizontalLayout_8">
+            <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="1,0">
              <item>
               <widget class="QDateEdit" name="releaseDate"/>
              </item>
              <item>
               <widget class="QToolButton" name="updateReleaseDate">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="toolTip">
+                <string>Update release date</string>
+               </property>
                <property name="text">
                 <string>...</string>
                </property>
                <property name="icon">
-                <iconset theme="view-refresh">
-                 <normaloff>.</normaloff>.</iconset>
+                <iconset resource="FirmwarePackager.qrc">
+                 <normaloff>:/res/refresh.svg</normaloff>:/res/refresh.svg</iconset>
                </property>
               </widget>
              </item>
@@ -281,8 +329,21 @@
            </item>
            <item>
             <widget class="QToolButton" name="selectOutputDirectory">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="toolTip">
+              <string>Select output directory</string>
+             </property>
              <property name="text">
               <string>...</string>
+             </property>
+             <property name="icon">
+              <iconset resource="FirmwarePackager.qrc">
+               <normaloff>:/res/select-folder.svg</normaloff>:/res/select-folder.svg</iconset>
              </property>
             </widget>
            </item>
@@ -389,6 +450,8 @@
    </layout>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="FirmwarePackager.qrc"/>
+ </resources>
  <connections/>
 </ui>
