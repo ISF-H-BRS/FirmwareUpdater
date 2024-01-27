@@ -21,29 +21,37 @@
 //                                                                                                //
 // ============================================================================================== //
 
-#include "mainwindow.h"
+#pragma once
 
-#include <QApplication>
+#include <QMenu>
 
-// ---------------------------------------------------------------------------------------------- //
-
-auto main(int argc, char* argv[]) -> int
+class PresetsMenu : public QMenu
 {
-    QApplication::setOrganizationName("Bonn-Rhein-Sieg University of Applied Sciences");
-    QApplication::setApplicationName("ISF Firmware Packager");
-    QApplication::setApplicationVersion("1.0");
+    Q_OBJECT
 
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-    QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
-#endif
+public:
+    PresetsMenu(QWidget* parent = nullptr);
 
-    QApplication application(argc, argv);
+    void setCurrentPreset(const QString& name);
+    auto currentPreset() const -> QString;
 
-    MainWindow window;
-    window.show();
+public slots:
+    void reloadPresets();
+    void setModified();
 
-    return QApplication::exec();
-}
+signals:
+    void presetChanged(const QString& name);
 
-// ---------------------------------------------------------------------------------------------- //
+    void saveRequested();
+    void deleteRequested();
+
+private slots:
+    void updateSelection();
+
+private:
+    QList<QAction*> m_presets;
+
+    QAction* m_modifiedAction = nullptr;
+    QAction* m_saveAction = nullptr;
+    QAction* m_deleteAction = nullptr;
+};

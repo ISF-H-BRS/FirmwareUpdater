@@ -5,7 +5,7 @@
 //  Author:                                                                                       //
 //  Marcel Hasler <mahasler@gmail.com>                                                            //
 //                                                                                                //
-//  Copyright (c) 2020 - 2023                                                                     //
+//  Copyright (c) 2020 - 2024                                                                     //
 //  Bonn-Rhein-Sieg University of Applied Sciences                                                //
 //                                                                                                //
 //  This library is free software: you can redistribute it and/or modify it under the terms of    //
@@ -45,7 +45,7 @@ namespace {
         "c0ooEtnRM3uwt58iKjvILk7kAuQGuTOW8toBoAxJfrlf0YfrPkjlbMRxgWWqovOo\n"
         "neRy5jTZtMdIfv9FaRARB1OuMMEpsA7kZlJSn824cgbyB+8hJMVKIgaPtaBiANXL\n"
         "PkwINBoVpjLWUOTO9jBi9S9+z//dYyLWuvEfK8WROLYqIHoY4hG8hdECAwEAAQ==\n"
-        "-----END RSA PUBLIC KEY-----";
+        "-----END RSA PUBLIC KEY-----\n";
 }
 
 // ---------------------------------------------------------------------------------------------- //
@@ -57,6 +57,11 @@ auto main(int argc, char* argv[]) -> int
     QCoreApplication::setOrganizationName("Bonn-Rhein-Sieg University of Applied Sciences");
     QCoreApplication::setApplicationName("ISF Firmware Updater");
     QCoreApplication::setApplicationVersion("1.0");
+
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+#endif
 
     QApplication application(argc, argv);
 

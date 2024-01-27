@@ -5,7 +5,7 @@
 //  Author:                                                                                       //
 //  Marcel Hasler <mahasler@gmail.com>                                                            //
 //                                                                                                //
-//  Copyright (c) 2020 - 2023                                                                     //
+//  Copyright (c) 2020 - 2024                                                                     //
 //  Bonn-Rhein-Sieg University of Applied Sciences                                                //
 //                                                                                                //
 //  This library is free software: you can redistribute it and/or modify it under the terms of    //
@@ -126,8 +126,8 @@ auto FirmwareArchive::hexRecords() const -> const StringList&
 
 void FirmwareArchive::registerPublicKey(const std::string& packager, const std::string& key)
 {
-    const bool keyValid = key.starts_with("-----BEGIN RSA PUBLIC KEY-----") &&
-                          key.ends_with("-----END RSA PUBLIC KEY-----");
+    const bool keyValid = key.starts_with("-----BEGIN RSA PUBLIC KEY-----\n") &&
+                          key.ends_with("-----END RSA PUBLIC KEY-----\n");
     if (!keyValid)
         throw Error("RSA key not in valid PEM format.");
 

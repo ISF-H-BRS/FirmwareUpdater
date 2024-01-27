@@ -5,7 +5,7 @@
 //  Author:                                                                                       //
 //  Marcel Hasler <mahasler@gmail.com>                                                            //
 //                                                                                                //
-//  Copyright (c) 2020 - 2023                                                                     //
+//  Copyright (c) 2020 - 2024                                                                     //
 //  Bonn-Rhein-Sieg University of Applied Sciences                                                //
 //                                                                                                //
 //  This program is free software: you can redistribute it and/or modify it under the terms       //
@@ -64,6 +64,9 @@ MainWindow::MainWindow(QWidget* parent)
     m_ui->updateReleaseDate->setMaximumSize(QSize(size, size));
     m_ui->selectOutputDirectory->setMaximumSize(QSize(size, size));
 
+    m_presetsMenu = new PresetsMenu(m_ui->presetsButton);
+    m_ui->presetsButton->setMenu(m_presetsMenu);
+
     restoreSettings();
 
     updateContinueToMetadataButton();
@@ -104,6 +107,14 @@ MainWindow::MainWindow(QWidget* parent)
     connect(m_ui->outputDirectory, &QLineEdit::textChanged,
             this, &MainWindow::updateCreatePackageButton);
 
+    connect(m_presetsMenu, &PresetsMenu::presetChanged, this, &MainWindow::loadPreset);
+    connect(m_presetsMenu, &PresetsMenu::saveRequested, this, &MainWindow::savePreset);
+    connect(m_presetsMenu, &PresetsMenu::deleteRequested, this, &MainWindow::deletePreset);
+
+    connect(m_ui->hexFile, &QLineEdit::textEdited, m_presetsMenu, &PresetsMenu::setModified);
+    connect(m_ui->metadataFile, &QLineEdit::textEdited, m_presetsMenu, &PresetsMenu::setModified);
+    connect(m_ui->signingKey, &QLineEdit::textEdited, m_presetsMenu, &PresetsMenu::setModified);
+
     connect(m_ui->continueToMetadata, &QPushButton::clicked, this, &MainWindow::continueToMetadata);
     connect(m_ui->returnToInput, &QPushButton::clicked, this, &MainWindow::returnToInput);
 
@@ -130,7 +141,11 @@ void MainWindow::selectHexFile()
     if (filename.isEmpty())
         return;
 
-    m_ui->hexFile->setText(filename);
+    if (filename != m_ui->hexFile->text())
+    {
+        m_ui->hexFile->setText(filename);
+        m_presetsMenu->setModified();
+    }
 }
 
 // ---------------------------------------------------------------------------------------------- //
@@ -143,7 +158,11 @@ void MainWindow::selectMetadataFile()
     if (filename.isEmpty())
         return;
 
-    m_ui->metadataFile->setText(filename);
+    if (filename != m_ui->metadataFile->text())
+    {
+        m_ui->metadataFile->setText(filename);
+        m_presetsMenu->setModified();
+    }
 }
 
 // ---------------------------------------------------------------------------------------------- //
@@ -156,7 +175,11 @@ void MainWindow::selectSigningKey()
     if (filename.isEmpty())
         return;
 
-    m_ui->signingKey->setText(filename);
+    if (filename != m_ui->signingKey->text())
+    {
+        m_ui->signingKey->setText(filename);
+        m_presetsMenu->setModified();
+    }
 }
 
 // ---------------------------------------------------------------------------------------------- //
@@ -176,6 +199,80 @@ void MainWindow::selectOutputDirectory()
 void MainWindow::updateReleaseDate()
 {
     m_ui->releaseDate->setDate(QDate::currentDate());
+}
+
+// ---------------------------------------------------------------------------------------------- //
+
+void MainWindow::loadPreset(const QString& name)
+{
+    QSettings settings;
+    settings.setValue("CurrentPreset", name);
+
+    settings.beginGroup("Presets");
+    settings.beginGroup(name);
+
+    m_ui->hexFile->setText(settings.value("HexFile").toString());    
+    m_ui->metadataFile->setText(settings.value("MetadataFile").toString());
+    m_ui->signingKey->setText(settings.value("SigningKey").toString());
+}
+
+// ---------------------------------------------------------------------------------------------- //
+
+void MainWindow::savePreset()
+{
+    QString name = QInputDialog::getText(this, "Save Preset", "Enter a name for this preset:");
+
+    if (name.isEmpty())
+        return;
+
+    QSettings settings;
+
+    settings.beginGroup("Presets");
+    settings.beginGroup(name);
+
+    if (settings.contains("HexFile"))
+    {
+        auto button = QMessageBox::question(this, "Save Preset",
+                                            "A preset by that name already exists. "
+                                            "Are you sure you want to overwrite it "
+                                            "with the current settings?");
+        if (button == QMessageBox::No)
+            return;
+    }
+
+    settings.setValue("HexFile", m_ui->hexFile->text());
+    settings.setValue("MetadataFile", m_ui->metadataFile->text());
+    settings.setValue("SigningKey", m_ui->signingKey->text());
+
+    settings.endGroup();
+    settings.endGroup();
+
+    settings.setValue("CurrentPreset", name);
+
+    m_presetsMenu->reloadPresets();
+}
+
+// ---------------------------------------------------------------------------------------------- //
+
+void MainWindow::deletePreset()
+{
+    QString name = m_presetsMenu->currentPreset();
+
+    auto button = QMessageBox::question(this, "Delete Preset",
+                                        "Are you sure you want to delete "
+                                        "the preset \"" + name + "\"?");
+    if (button == QMessageBox::No)
+        return;
+
+    QSettings settings;
+    settings.setValue("CurrentPreset", "");
+
+    settings.beginGroup("Presets");
+    settings.beginGroup(m_presetsMenu->currentPreset());
+    settings.remove("");
+
+    m_presetsMenu->reloadPresets();
+    m_presetsMenu->setModified();
 }
 
 // ---------------------------------------------------------------------------------------------- //

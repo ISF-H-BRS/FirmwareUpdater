@@ -5,7 +5,7 @@
 //  Author:                                                                                       //
 //  Marcel Hasler <mahasler@gmail.com>                                                            //
 //                                                                                                //
-//  Copyright (c) 2020 - 2023                                                                     //
+//  Copyright (c) 2020 - 2024                                                                     //
 //  Bonn-Rhein-Sieg University of Applied Sciences                                                //
 //                                                                                                //
 //  This program is free software: you can redistribute it and/or modify it under the terms       //
@@ -22,6 +22,8 @@
 // ============================================================================================== //
 
 #pragma once
+
+#include "presetsmenu.h"
 
 #include <QMainWindow>
 
@@ -47,6 +49,10 @@ private slots:
 
     void updateReleaseDate();
 
+    void loadPreset(const QString& name);
+    void savePreset();
+    void deletePreset();
+
     void continueToMetadata();
     void returnToInput();
 
@@ -70,4 +76,5 @@ private:
 
 private:
     std::unique_ptr<Ui::MainWindow> m_ui;
+    PresetsMenu* m_presetsMenu = nullptr;
 };

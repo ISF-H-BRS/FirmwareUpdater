@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>348</width>
-    <height>405</height>
+    <width>356</width>
+    <height>396</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,9 +17,6 @@
    <bool>true</bool>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <property name="sizeConstraint">
-    <enum>QLayout::SetFixedSize</enum>
-   </property>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
@@ -31,7 +28,7 @@
         <pixmap resource="FirmwareUpdater.qrc">:/res/logo-hbrs.png</pixmap>
        </property>
        <property name="margin">
-        <number>5</number>
+        <number>6</number>
        </property>
       </widget>
      </item>
@@ -48,7 +45,7 @@
         <pixmap resource="FirmwareUpdater.qrc">:/res/logo-isf.png</pixmap>
        </property>
        <property name="margin">
-        <number>5</number>
+        <number>6</number>
        </property>
       </widget>
      </item>
@@ -73,7 +70,7 @@
    <item>
     <widget class="QLabel" name="label_3">
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;ISF Firmware Updater&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Version 1.0&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;System development:&lt;/span&gt;&lt;br/&gt;Marcel Hasler &amp;lt;mahasler@gmail.com&amp;gt;&lt;/p&gt;&lt;p&gt;Copyright (c) 2020 - 2023&lt;br/&gt;Bonn-Rhein-Sieg University of Applied Sciences&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;ISF Firmware Updater&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Version 1.0&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;System development:&lt;/span&gt;&lt;br/&gt;Marcel Hasler &amp;lt;mahasler@gmail.com&amp;gt;&lt;/p&gt;&lt;p&gt;Copyright (c) 2020 - 2024&lt;br/&gt;Bonn-Rhein-Sieg University of Applied Sciences&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="margin">
       <number>6</number>

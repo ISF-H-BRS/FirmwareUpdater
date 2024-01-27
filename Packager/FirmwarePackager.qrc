@@ -3,5 +3,8 @@
         <file>res/refresh.svg</file>
         <file>res/select-file.svg</file>
         <file>res/select-folder.svg</file>
+        <file>res/save.svg</file>
+        <file>res/bullet.svg</file>
+        <file>res/delete.svg</file>
     </qresource>
 </RCC>

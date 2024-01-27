@@ -5,7 +5,7 @@
 //  Author:                                                                                       //
 //  Marcel Hasler <mahasler@gmail.com>                                                            //
 //                                                                                                //
-//  Copyright (c) 2020 - 2023                                                                     //
+//  Copyright (c) 2020 - 2024                                                                     //
 //  Bonn-Rhein-Sieg University of Applied Sciences                                                //
 //                                                                                                //
 //  This library is free software: you can redistribute it and/or modify it under the terms of    //
@@ -31,7 +31,7 @@ AboutDialog::AboutDialog(QWidget* parent)
       m_ui(std::make_unique<Ui::AboutDialog>())
 {
     m_ui->setupUi(this);
-    resize(sizeHint());
+    setFixedSize(minimumSizeHint());
 }
 
 // ---------------------------------------------------------------------------------------------- //

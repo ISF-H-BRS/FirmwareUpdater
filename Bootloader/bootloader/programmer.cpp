@@ -5,7 +5,7 @@
 //   Author:                                                                                      //
 //   Marcel Hasler <mahasler@gmail.com>                                                           //
 //                                                                                                //
-//   Copyright (c) 2020 - 2023                                                                    //
+//   Copyright (c) 2020 - 2024                                                                    //
 //   Bonn-Rhein-Sieg University of Applied Sciences                                               //
 //                                                                                                //
 //   Redistribution and use in source and binary forms, with or without modification,             //
@@ -37,12 +37,14 @@
 
 // ---------------------------------------------------------------------------------------------- //
 
-#ifndef BOOTLOADER_VOLTAGE_RANGE
-#define BOOTLOADER_VOLTAGE_RANGE FLASH_VOLTAGE_RANGE_3 // 2.7 - 3.6 V, x32 parallelism
-#endif
+#if defined(STM32F4)
+  #ifndef BOOTLOADER_VOLTAGE_RANGE
+    #define BOOTLOADER_VOLTAGE_RANGE FLASH_VOLTAGE_RANGE_3 // 2.7 - 3.6 V, x32 parallelism
+  #endif
 
-#if BOOTLOADER_VOLTAGE_RANGE == FLASH_VOLTAGE_RANGE_4
-#error "FLASH_VOLTAGE_RANGE_4 is not supported."
+  #if BOOTLOADER_VOLTAGE_RANGE == FLASH_VOLTAGE_RANGE_4
+    #error "FLASH_VOLTAGE_RANGE_4 is not supported."
+  #endif
 #endif
 
 // ---------------------------------------------------------------------------------------------- //
